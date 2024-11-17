@@ -1,0 +1,18 @@
+{
+    "db_name": "db1",
+    "db_host": "localhost",
+    "db_user": "test_user",
+    "db_password": "test_password",
+    "num_records": 10,
+    "tables": [
+        {
+            "name": "customers",
+            "columns": [
+                {"name": "first_name", "type": "name"},
+                {"name": "last_name", "type": "name"},
+                {"name": "email", "type": "email"},
+                {"name": "phone", "type": "phone_number"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+06/17/2023 04:48:22 PM Database backup created: db3_backup_20230617_164822.sql
+06/17/2023 04:48:22 PM Backup file compressed: db3_backup_20230617_164822.sql.gz
+06/17/2023 04:48:22 PM Backup file encrypted: db3_backup_20230617_164822.sql.gz.enc
+06/17/2023 04:48:24 PM Database backup created: db3_backup_20230617_164824.sql
+06/17/2023 04:48:24 PM Backup file compressed: db3_backup_20230617_164824.sql.gz
+06/17/2023 04:48:24 PM Backup file encrypted: db3_backup_20230617_164824.sql.gz.enc
+06/17/2023 04:50:41 PM Database backup created: db3_backup_20230617_165041.sql
+06/17/2023 04:50:41 PM Backup file compressed: db3_backup_20230617_165041.sql.gz
+06/17/2023 04:50:41 PM Backup file encrypted: db3_backup_20230617_165041.sql.gz.enc
+06/17/2023 04:50:43 PM Database backup created: db3_backup_20230617_165043.sql
+06/17/2023 04:50:43 PM Backup file compressed: db3_backup_20230617_165043.sql.gz
+06/17/2023 04:50:43 PM Backup file encrypted: db3_backup_20230617_165043.sql.gz.enc
+06/17/2023 04:52:32 PM Database backup created: db3_backup_20230617_165232.sql
+06/17/2023 04:52:32 PM Backup file compressed: db3_backup_20230617_165232.sql.gz
+06/17/2023 04:52:32 PM Backup file encrypted: db3_backup_20230617_165232.sql.gz.enc
+06/17/2023 04:52:32 PM Failed to send the encrypted backup file to the server API
+06/17/2023 04:52:33 PM Database backup created: db3_backup_20230617_165233.sql
+06/17/2023 04:52:33 PM Backup file compressed: db3_backup_20230617_165233.sql.gz
+06/17/2023 04:52:33 PM Backup file encrypted: db3_backup_20230617_165233.sql.gz.enc
+06/17/2023 04:52:33 PM Failed to send the encrypted backup file to the server API
+06/17/2023 04:59:31 PM Database backup created: db3_backup_20230617_165931.sql
+06/17/2023 04:59:31 PM Backup file compressed: db3_backup_20230617_165931.sql.gz
+06/17/2023 04:59:31 PM Backup file encrypted: db3_backup_20230617_165931.sql.gz.enc
+06/17/2023 04:59:32 PM Backup file sent successfully
+06/17/2023 04:59:32 PM Local copies deleted
+06/17/2023 04:59:33 PM Database backup created: db3_backup_20230617_165933.sql
+06/17/2023 04:59:33 PM Backup file compressed: db3_backup_20230617_165933.sql.gz
+06/17/2023 04:59:33 PM Backup file encrypted: db3_backup_20230617_165933.sql.gz.enc
+06/17/2023 04:59:33 PM Backup file sent successfully
+06/17/2023 04:59:33 PM Local copies deleted

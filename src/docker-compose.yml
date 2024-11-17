@@ -1,0 +1,108 @@
+version: "3.8"
+services:
+
+### server ###
+  server_app:
+    build:
+      context: ./server/server_app
+      dockerfile: Dockerfile
+    env_file:
+      - ./server/server_app/.env
+    network_mode: host
+    volumes:
+      - ./server/server_app/central_repository:/app/central_repository
+      - ./server/server_app/logs:/app/logs
+    environment:
+      - TZ=America/Santiago
+
+  server_frontend:
+    build:
+      context: ./server/server_frontend
+      dockerfile: Dockerfile
+    network_mode: host
+    environment:
+      - TZ=America/Santiago
+
+
+### client1 ###
+  client1_app:
+    build:
+      context: ./client/client1_app
+      dockerfile: Dockerfile
+    env_file:
+      - ./client/client1_app/.env
+    network_mode: host
+    depends_on:
+      - server_app
+    volumes:
+      - ./client/client1_app/keys:/app/keys
+      - ./client/client1_app/logs:/app/logs
+      - ./client/client1_app/files:/app/files
+    environment:
+      - TZ=America/Santiago
+
+  client1_frontend:
+    build:
+      context: ./client/client_frontend
+      dockerfile: Dockerfile
+    network_mode: host
+    environment:
+      - TZ=America/Santiago
+      - REACT_APP_PORT=3001
+      - REACT_APP_CLIENT_PORT=5001
+
+
+### client2 ###
+  client2_app:
+    build:
+      context: ./client/client2_app
+      dockerfile: Dockerfile
+    env_file:
+      - ./client/client2_app/.env
+    network_mode: host
+    depends_on:
+      - server_app
+    volumes:
+      - ./client/client2_app/keys:/app/keys
+      - ./client/client2_app/logs:/app/logs
+      - ./client/client2_app/files:/app/files
+    environment:
+      - TZ=America/Santiago
+
+  client2_frontend:
+    build:
+      context: ./client/client_frontend
+      dockerfile: Dockerfile
+    network_mode: host
+    environment:
+      - TZ=America/Santiago
+      - REACT_APP_PORT=3002
+      - REACT_APP_CLIENT_PORT=5002
+
+
+### client3 ###
+  client3_app:
+    build:
+      context: ./client/client3_app
+      dockerfile: Dockerfile
+    env_file:
+      - ./client/client3_app/.env
+    network_mode: host
+    depends_on:
+      - server_app
+    volumes:
+      - ./client/client3_app/keys:/app/keys
+      - ./client/client3_app/logs:/app/logs
+      - ./client/client3_app/files:/app/files
+    environment:
+      - TZ=America/Santiago
+
+  client3_frontend:
+    build:
+      context: ./client/client_frontend
+      dockerfile: Dockerfile
+    network_mode: host
+    environment:
+      - TZ=America/Santiago
+      - REACT_APP_PORT=3003
+      - REACT_APP_CLIENT_PORT=5003

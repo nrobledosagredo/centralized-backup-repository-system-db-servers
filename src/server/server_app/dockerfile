@@ -1,0 +1,17 @@
+# Imagen base
+FROM python:3.9.16
+
+# Establece el directorio de trabajo en /app
+WORKDIR /app
+
+RUN mkdir central_repository
+
+# Copia los requisitos del proyecto y los instala
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia el directorio actual (i.e., todo el código de la aplicación) al contenedor
+COPY . .
+
+# Define el comando para iniciar tu aplicación
+CMD ["python", "server_app.py"]

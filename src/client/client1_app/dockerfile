@@ -1,0 +1,21 @@
+# Imagen base
+FROM python:3.9.16
+
+# Establece el directorio de trabajo en /app
+WORKDIR /app
+
+# Copia los requisitos del proyecto y los instala
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Agrega el repositorio de PostgreSQL e instala postgresql-client-14 y default-mysql-client
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+    apt-get update && \
+    apt-get install -y postgresql-client-14 default-mysql-client
+
+# Copia el directorio actual (i.e., todo el código de la aplicación) al contenedor
+COPY . .
+
+# Define el comando para iniciar tu aplicación
+CMD ["python", "client_app.py"]

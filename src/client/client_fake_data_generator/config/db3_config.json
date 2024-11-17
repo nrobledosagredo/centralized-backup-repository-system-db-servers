@@ -1,0 +1,20 @@
+{
+    "db_name": "db3",
+    "db_host": "localhost",
+    "db_user": "test_user",
+    "db_password": "test_password",
+    "num_records": 10,
+    "tables": [
+        {
+            "name": "patients",
+            "columns": [
+                {"name": "first_name", "type": "name"},
+                {"name": "last_name", "type": "name"},
+                {"name": "birthdate", "type": "date"},
+                {"name": "email", "type": "email"},
+                {"name": "phone", "type": "phone_number"},
+                {"name": "address", "type": "address"}
+            ]
+        }
+    ]
+}

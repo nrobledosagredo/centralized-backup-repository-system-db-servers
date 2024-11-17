@@ -1,0 +1,18 @@
+{
+    "db_name": "db2",
+    "db_host": "localhost",
+    "db_user": "test_user",
+    "db_password": "test_password",
+    "num_records": 10,
+    "tables": [
+        {
+            "name": "suppliers",
+            "columns": [
+                {"name": "name", "type": "name"},
+                {"name": "address", "type": "address"},
+                {"name": "email", "type": "email"},
+                {"name": "phone", "type": "phone_number"}
+            ]
+        }
+    ]
+}
