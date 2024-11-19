@@ -1,4 +1,4 @@
-# Sistema de repositorio centralizado de backups para bases de datos de servidores diferentes
+# Centralized backup repository system for databases across different servers
 
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
@@ -8,86 +8,62 @@
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
-## Requisitos
+This project is a centralized backup repository system designed for managing database backups across different servers. It leverages technologies such as MariaDB, PostgreSQL, Docker, Flask, and React to provide a scalable and secure solution for database management. The system is divided into separate client and server components, each with its own frontend and backend, ensuring flexibility and easy integration. This project is part of a distributed systems learning project, aimed at understanding the concepts of networked applications, data synchronization, and service orchestration in a real-world context.
 
-Para ejecutar este proyecto, asegúrate de tener instalados los siguientes componentes:
+## Requirements
 
-- **Python 3.9.16**.
-- **MariaDB v10.6.12** o **PostgreSQL v14.7**.
-- **Docker** (versión 19.03 o superior).
-- **Docker Compose** (versión 3.8 o superior).
-- **pip** (para instalar dependencias de Python).
+- **Python 3.9.x**
+- **MariaDB v10.6.12** or **PostgreSQL v14.7**
+- **Docker** (version 19.03 or higher)
+- **Docker Compose** (version 3.8 or higher)
+- **pip** (for installing Python dependencies)
 
 ---
 
-## 1. Generación de datos de prueba
+## Generate test data
 
-### Instalación de software
-
-- **Python 3.9.16**: Verifica la versión instalada con el siguiente comando:
-  ```bash
-  python3 --version
-  ```
-  Si necesitas instalar Python 3.9.16:
-  ```bash
-  sudo apt update
-  sudo apt install python3.9
-  ```
-
-- **MariaDB v10.6.12**: Sigue las instrucciones oficiales para instalar MariaDB.
-
-- **PostgreSQL v14.7**: Sigue las instrucciones oficiales para instalar PostgreSQL.
-
-### Instalación de dependencias de python
-
-Ejecuta los siguientes comandos para instalar las dependencias necesarias:
+1. Run the following commands to install the required dependencies:
 ```bash
 pip install faker==18.6.2
 pip install pymysql==1.0.3
 pip install psycopg2==2.9.6
 ```
 
-### Configuración de las bases de datos
-
-**MariaDB**:
+2. **MariaDB** database setup:
 ```sql
-CREATE DATABASE tu_base_de_datos;
-CREATE USER 'tu_usuario'@'localhost' IDENTIFIED BY 'tu_contraseña';
-GRANT ALL PRIVILEGES ON tu_base_de_datos.* TO 'tu_usuario'@'localhost';
+CREATE DATABASE your_database;
+CREATE USER 'your_user'@'localhost' IDENTIFIED BY 'your_password';
+GRANT ALL PRIVILEGES ON your_database.* TO 'your_user'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-**PostgreSQL**:
+3. **PostgreSQL** database setup:
 ```sql
-CREATE DATABASE tu_base_de_datos;
-CREATE USER tu_usuario WITH ENCRYPTED PASSWORD 'tu_contraseña';
-GRANT ALL PRIVILEGES ON DATABASE tu_base_de_datos TO tu_usuario;
+CREATE DATABASE your_database;
+CREATE USER your_user WITH ENCRYPTED PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE your_database TO your_user;
 ```
 
-### Generación de datos de prueba
-
-Para generar datos de prueba, dirígete a la carpeta `client_fake_data_generator` y ejecuta uno de los siguientes scripts, dependiendo de la base de datos que estés utilizando:
-
+4. To generate test data, navigate to the `client_fake_data_generator` folder and run one of the following scripts, depending on your database:
 ```bash
 python mariadb_fake_data_generator.py <config>
 python postgresql_fake_data_generator.py <config>
 ```
-
-Donde `<config>` puede ser `db1_config.json`, `db2_config.json` o `db3_config.json`.
+Where `<config>` can be `db1_config.json`, `db2_config.json`, or `db3_config.json`.
 
 ---
 
-## 2. Configuración
+## Configuration
 
-### Archivos `.env` del cliente
+### Client `.env` files
 
-El proyecto incluye tres clientes predeterminados. Para agregar un nuevo cliente:
+The project includes three predefined clients (users). To add a new client:
 
-1. Crea una nueva carpeta en `./client/` (por ejemplo, `client4_app`).
-2. Copia los archivos de un cliente existente (por ejemplo, `client1_app`) a la nueva carpeta.
-3. Configura el archivo `.env` con los valores específicos del nuevo cliente.
+1. Create a new folder under `./client/` (e.g., `client4_app`).
+2. Copy the files from an existing client (e.g., `client1_app`) into the new folder.
+3. Configure the `.env` file with the specific values for the new client.
 
-Ejemplo de archivo `.env` del cliente:
+Example of a client’s `.env` file:
 ```env
 CLIENT_USERNAME=client1
 CLIENT_APP_HOST=0.0.0.0
@@ -104,7 +80,7 @@ BACKUP_HOUR=18
 BACKUP_MINUTE=45
 ```
 
-Para agregar el nuevo cliente al servicio de Docker, añade la siguiente sección en el archivo `docker-compose.yml`:
+To add the new client to the Docker service, add the following section to the `docker-compose.yml` file:
 ```yaml
   client4_app:
     build:
@@ -123,9 +99,9 @@ Para agregar el nuevo cliente al servicio de Docker, añade la siguiente secció
       - TZ=America/Santiago
 ```
 
-### Configuración del servidor
+### Server configuration
 
-El archivo `.env` del servidor tiene la siguiente estructura:
+The server `.env` file should have the following structure:
 ```env
 SERVER_APP_HOST=0.0.0.0
 SERVER_APP_PORT=5000
@@ -133,46 +109,46 @@ SERVER_APP_PORT=5000
 
 ---
 
-## 3. Despliegue
+## Deployment
 
-Antes de comenzar con el despliegue, asegúrate de que los archivos `.env` estén configurados correctamente en las siguientes rutas:
+Before starting the deployment, ensure that the `.env` files are correctly configured at the following paths:
 - `./server/server_app/.env`
 - `./client/client1_app/.env`
 - `./client/client2_app/.env`
 - `./client/client3_app/.env`
 
-### Compilación y Ejecución
+### Build and run
 
-1. Navega al directorio raíz del proyecto, donde se encuentra el archivo `docker-compose.yml`.
-2. Ejecuta la compilación de los servicios:
+1. Navigate to the root directory of the project, where the `docker-compose.yml` file is located.
+2. Run the service build:
    ```bash
    docker-compose build
    ```
-3. Una vez completada la compilación, pon en marcha la aplicación con:
+3. Once the build is complete, start the application with:
    ```bash
    docker-compose up -d
    ```
-   Los servicios se ejecutarán en contenedores separados.
+   The services will now run in separate containers.
 
-### Detener la aplicación
+### Stop the application
 
-Para detener todos los servicios, ejecuta:
+To stop all services, run:
 ```bash
 docker-compose down
 ```
 
-### Frontend del servidor (administrador)
+### Administrator frontend
 
-Accede al frontend del servidor en:
+Access the administrator frontend at:
 ```
 http://IP:3000/
 ```
-Este interfaz permite visualizar y administrar los respaldos, incluidas las opciones de eliminación.
+This interface provides administrators with full control to view, manage, and delete backups.
 
-### Frontend del cliente
+### User frontend
 
-Accede al frontend de un cliente en:
+Access the user frontend at:
 ```
 http://IP:PORT/
 ```
-En esta interfaz, podrás ver y desencriptar los respaldos almacenados.
+This interface allows users to securely view and decrypt their backups.
