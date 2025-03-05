@@ -1,16 +1,30 @@
 # Centralized backup repository system for databases across different servers
 
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
-![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
-This project is a centralized backup repository system designed for managing database backups across different servers. It leverages technologies such as MariaDB, PostgreSQL, Docker, Flask, and React to provide a scalable and secure solution for database management. The system is divided into separate client and server components, each with its own frontend and backend, ensuring flexibility and easy integration. This project is part of a distributed systems learning project, aimed at understanding the concepts of networked applications, data synchronization, and service orchestration in a real-world context.
+## Overview
 
-## Requirements
+This project is a centralized backup repository system designed for managing database backups across different servers. It leverages technologies such as MariaDB, PostgreSQL, Docker, Flask, and React to provide a scalable and secure solution for database management. 
+
+The system is divided into separate client and server components, each with its own frontend and backend, ensuring flexibility and easy integration. This project is part of a distributed systems learning project, aimed at understanding the concepts of networked applications, data synchronization, and service orchestration in a real-world context.
+
+## Features
+
+- **Centralized backup management**: Securely store and manage backups from multiple databases across different servers.
+- **Multi-database support**: Compatible with MariaDB and PostgreSQL databases.
+- **Automated backups**: Schedule backups at specific intervals using client configurations.
+- **User and admin interfaces**: Separate frontends for users and administrators to manage and view backups.
+- **Dockerized deployment**: Easy deployment using Docker and Docker Compose.
+
+## Prerequisites
+
+Before setting up the project, ensure you have the following installed:
 
 - **Python 3.9.x**
 - **MariaDB v10.6.12** or **PostgreSQL v14.7**
@@ -18,44 +32,43 @@ This project is a centralized backup repository system designed for managing dat
 - **Docker Compose** (version 3.8 or higher)
 - **pip** (for installing Python dependencies)
 
----
+## Setup
 
-## Generate test data
+### 1. Generate test data
 
-1. Run the following commands to install the required dependencies:
-```bash
-pip install faker==18.6.2
-pip install pymysql==1.0.3
-pip install psycopg2==2.9.6
-```
+To generate test data for your databases, follow these steps:
 
-2. **MariaDB** database setup:
-```sql
-CREATE DATABASE your_database;
-CREATE USER 'your_user'@'localhost' IDENTIFIED BY 'your_password';
-GRANT ALL PRIVILEGES ON your_database.* TO 'your_user'@'localhost';
-FLUSH PRIVILEGES;
-```
+1. Install the required Python dependencies:
+   ```bash
+   pip install faker==18.6.2 pymysql==1.0.3 psycopg2==2.9.6
+   ```
 
-3. **PostgreSQL** database setup:
-```sql
-CREATE DATABASE your_database;
-CREATE USER your_user WITH ENCRYPTED PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE your_database TO your_user;
-```
+2. Set up your database:
+   - **MariaDB**:
+     ```sql
+     CREATE DATABASE your_database;
+     CREATE USER 'your_user'@'localhost' IDENTIFIED BY 'your_password';
+     GRANT ALL PRIVILEGES ON your_database.* TO 'your_user'@'localhost';
+     FLUSH PRIVILEGES;
+     ```
+   - **PostgreSQL**:
+     ```sql
+     CREATE DATABASE your_database;
+     CREATE USER your_user WITH ENCRYPTED PASSWORD 'your_password';
+     GRANT ALL PRIVILEGES ON DATABASE your_database TO your_user;
+     ```
 
-4. To generate test data, navigate to the `client_fake_data_generator` folder and run one of the following scripts, depending on your database:
-```bash
-python mariadb_fake_data_generator.py <config>
-python postgresql_fake_data_generator.py <config>
-```
-Where `<config>` can be `db1_config.json`, `db2_config.json`, or `db3_config.json`.
+3. Navigate to the `client_fake_data_generator` folder and run the appropriate script for your database:
+   ```bash
+   python mariadb_fake_data_generator.py <config>
+   # OR
+   python postgresql_fake_data_generator.py <config>
+   ```
+   Replace `<config>` with `db1_config.json`, `db2_config.json`, or `db3_config.json`.
 
----
+### 2. Configuration
 
-## Configuration
-
-### Client `.env` files
+#### Client configuration
 
 The project includes three predefined clients (users). To add a new client:
 
@@ -80,26 +93,26 @@ BACKUP_HOUR=18
 BACKUP_MINUTE=45
 ```
 
-To add the new client to the Docker service, add the following section to the `docker-compose.yml` file:
-```yaml
-  client4_app:
-    build:
-      context: ./client/client4_app
-      dockerfile: Dockerfile
-    env_file:
-      - ./client/client4_app/.env
-    network_mode: host
-    depends_on:
-      - server_app
-    volumes:
-      - ./client/client4_app/keys:/app/keys
-      - ./client/client4_app/logs:/app/logs
-      - ./client/client4_app/files:/app/files
-    environment:
-      - TZ=America/Santiago
-```
+4. Add the new client to the `docker-compose.yml` file:
+   ```yaml
+   client4_app:
+     build:
+       context: ./client/client4_app
+       dockerfile: Dockerfile
+     env_file:
+       - ./client/client4_app/.env
+     network_mode: host
+     depends_on:
+       - server_app
+     volumes:
+       - ./client/client4_app/keys:/app/keys
+       - ./client/client4_app/logs:/app/logs
+       - ./client/client4_app/files:/app/files
+     environment:
+       - TZ=America/Santiago
+   ```
 
-### Server configuration
+#### Server configuration
 
 The server `.env` file should have the following structure:
 ```env
@@ -107,9 +120,7 @@ SERVER_APP_HOST=0.0.0.0
 SERVER_APP_PORT=5000
 ```
 
----
-
-## Deployment
+### 3. Deployment
 
 Before starting the deployment, ensure that the `.env` files are correctly configured at the following paths:
 - `./server/server_app/.env`
@@ -117,25 +128,27 @@ Before starting the deployment, ensure that the `.env` files are correctly confi
 - `./client/client2_app/.env`
 - `./client/client3_app/.env`
 
-### Build and run
+#### Build and run
 
 1. Navigate to the root directory of the project, where the `docker-compose.yml` file is located.
-2. Run the service build:
+2. Build the services:
    ```bash
    docker-compose build
    ```
-3. Once the build is complete, start the application with:
+3. Start the application:
    ```bash
    docker-compose up -d
    ```
    The services will now run in separate containers.
 
-### Stop the application
+#### Stop the application
 
 To stop all services, run:
 ```bash
 docker-compose down
 ```
+
+## Usage
 
 ### Administrator frontend
 
